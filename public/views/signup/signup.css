@@ -1,0 +1,26 @@
+body {
+  text-align: center;
+
+  background-size: cover;
+}
+.submission-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 2px solid #e74c3c;
+  padding: 2rem;
+}
+label {
+  display: block;
+  text-transform: uppercase;
+}
+input {
+  width: 100%;
+  color: green;
+}
+button {
+  margin-top: 20px;
+  width: 40%;
+}
+button:hover {
+  color: #e74c3c;
+}
