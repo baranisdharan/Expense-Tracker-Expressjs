@@ -13,7 +13,7 @@ exports.postSignup = async(req,res)=>{
     console.log(req.body)
     const {name,email,password} = req.body
     if(isstringinvalid(name) || isstringinvalid(email) || isstringinvalid(password)){
-        res.status(400).json({err:'bad parameter....something went wrong'})
+       return res.status(400).json({err:'bad parameter....something went wrong'})
         
     }
     let data = await User.create({name:name, email:email, password:password})
