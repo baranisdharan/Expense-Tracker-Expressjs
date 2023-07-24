@@ -5,12 +5,10 @@ async function login(e) {
             email: e.target.email.value,
             password: e.target.password.value
         }
-        axios.post("http://localhost:4000/user/login", loginDetails)
+        await axios.post("http://localhost:4000/user/login", loginDetails)
             .then(response => {
                 if (response.status == 200) {
-                    alert(response.data.message)
-                    localStorage.setItem('token', response.data.token)
-                    window.location.href = "../ExpenseTracker/index.html"
+                    alert(response.data.message)                    
                 } else {
                     throw new Error(response.data.message)
                 }
