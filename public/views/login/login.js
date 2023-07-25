@@ -8,7 +8,8 @@ async function login(e) {
         await axios.post("http://localhost:4000/user/login", loginDetails)
             .then(response => {
                 if (response.status == 200) {
-                    alert(response.data.message)      
+                    alert(response.data.message)  
+                    localStorage.setItem('token', response.data.token)    
                     window.location.href = "../ExpenseTracker/index.html"              
                 } else {
                     throw new Error(response.data.message)
@@ -21,8 +22,4 @@ async function login(e) {
     } catch (err) {
         document.body.innerHTML += `<div style="color:red;">${err}</div>`
     }
-}
-
-function forgotpassword() {
-    window.location.href = "../Forgotpassword/index.html"
 }
