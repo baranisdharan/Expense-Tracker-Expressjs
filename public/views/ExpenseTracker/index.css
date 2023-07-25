@@ -1,0 +1,57 @@
+body{
+    text-align: center;    
+}
+.submission-form{
+    max-width:500px;
+    margin:2rem auto;
+    border:2px solid #E74C3C;
+    padding:2rem;
+}
+label{
+    display: block;
+    text-transform: uppercase;
+}
+input{
+    width:100%;
+}
+button{
+    width:40%;
+    text-transform: uppercase;
+    
+
+}
+button:hover{
+    color: #E74C3C;
+}
+#rzp-button{
+    color:green;
+}
+#listofExpenses{
+    display:block;
+    border:2px solid;
+    text-align: center;
+    
+}
+#leaderboard{
+    display:block;
+    border:2px solid;
+    text-align: center;
+    color:blue
+}
+li{
+    color:black;
+    text-transform:uppercase;
+    display:block;
+}
+#downloadexpense{
+    text-align: center;
+    width: fit-content;
+    
+}
+#pagination button{
+    width:2%;
+    
+}
+#paginationleader button{
+    width:2%
+}

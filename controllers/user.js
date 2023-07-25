@@ -1,5 +1,5 @@
 const User = require('../models/users');
-const bcrypt=require('bcrypt');
+const bcrypt = require('bcrypt');
 
 function isstringinvalid(string){
     if(string==undefined || string.length==0){
@@ -10,13 +10,12 @@ function isstringinvalid(string){
 }
 
 exports.postSignup = async(req,res)=>{
-    try{
-    console.log(req.body)
+    try{    
     const {name,email,password} = req.body
     if(isstringinvalid(name) || isstringinvalid(email) || isstringinvalid(password)){
        return res.status(400).json({err:'bad parameter....something went wrong'})        
     }
-    const saltrounds=10
+    const saltrounds = 10
     bcrypt.hash(password,saltrounds,async(err,hash)=>{
         if(err){
             throw new Error('something went wrong')
@@ -30,10 +29,9 @@ exports.postSignup = async(req,res)=>{
     }}
 }
 
-exports.postLogin=async(req,res,next)=>{
+exports.postLogin = async(req,res)=>{
     try{
-    const{email,password}=req.body;
-    console.log(password)
+    const{email,password}=req.body;    
     if(isstringinvalid(email) || isstringinvalid(password)){
         res.status(400).json({message:'email or password is missing',success:false})
     }

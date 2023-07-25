@@ -8,7 +8,8 @@ async function login(e) {
         await axios.post("http://localhost:4000/user/login", loginDetails)
             .then(response => {
                 if (response.status == 200) {
-                    alert(response.data.message)                    
+                    alert(response.data.message)      
+                    window.location.href = "../ExpenseTracker/index.html"              
                 } else {
                     throw new Error(response.data.message)
                 }
