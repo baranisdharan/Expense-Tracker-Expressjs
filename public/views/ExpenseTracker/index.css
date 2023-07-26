@@ -16,9 +16,11 @@ input{
 }
 button{
     width:40%;
-    text-transform: uppercase;
-    
+    text-transform: uppercase;    
+}
 
+#del-button{
+    width:10%;
 }
 button:hover{
     color: #E74C3C;
@@ -26,6 +28,8 @@ button:hover{
 #rzp-button{    
     color:rgb(17, 168, 32);
 }
+
+
 #listofExpenses{
     display:block;
     border:2px solid;
@@ -36,12 +40,12 @@ button:hover{
     display:block;
     border:2px solid;
     text-align: center;
-    color:blue
+    color:white
 }
 li{
-    color:black;
+    color:rgb(37, 12, 176);
     text-transform:uppercase;
-    display:block;
+    display:block;    
 }
 #downloadexpense{
     text-align: center;

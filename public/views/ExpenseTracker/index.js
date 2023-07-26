@@ -49,7 +49,7 @@ function addNewExpensetoUI(expense){
     const expenseElemId=`expense-${expense.id}`;
     parentElement.innerHTML +=`<li id=${expenseElemId}>
     ${expense.expenseamount} - ${expense.category} - ${expense.description}
-    <button onClick='deleteExpense(event,${expense.id})'>Delete Expense</button>
+    <button id="del-button" onClick='deleteExpense(event,${expense.id})'>Delete Expense</button>
     </li>`
 }
 
