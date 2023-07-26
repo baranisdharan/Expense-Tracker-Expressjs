@@ -1,6 +1,7 @@
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const Expense=require('../models/expenses');
 
 
 function isstringinvalid(string){
@@ -9,10 +10,6 @@ function isstringinvalid(string){
     }else{
         return false
     }
-}
-
-const generateAccessToken = (id, name) => {
-    return jwt.sign({ userId : id, name: name } ,'secretkey');
 }
 
 exports.postSignup = async(req,res)=>{
@@ -27,7 +24,7 @@ exports.postSignup = async(req,res)=>{
             throw new Error('something went wrong')
         }
         await User.create({name,email,password:hash})
-        res.status(201).json({message:'succesfully create new user'})
+        res.status(201).json({message:'succesfully created new user'})
     })
 }
     catch{(err)=>{
@@ -48,7 +45,7 @@ exports.postLogin = async(req,res)=>{
                     throw new Error('something went wrong')
                 }
                 if(result===true){
-                    res.status(200).json({success:true,message:'user logged in successfully',token: generateAccessToken(user[0].id, user[0].name)})
+                    res.status(200).json({success:true,message:'user logged in successfully',token:generateAccessToken(user[0].id,user[0].name,user[0].ispremiumuser)})
                 }else{
                     return res.status(400).json({success:false,message:'password is incorrect'})
                 }
@@ -60,4 +57,8 @@ exports.postLogin = async(req,res)=>{
     catch{err=>{
         res.status(500).json({message:err,success:false})
     }}
+}
+
+function generateAccessToken(id,name,ispremiumuser){
+    return jwt.sign({userId:id,name:name,ispremiumuser:ispremiumuser},'secretkey')
 }

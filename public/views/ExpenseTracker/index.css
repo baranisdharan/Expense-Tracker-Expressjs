@@ -23,8 +23,8 @@ button{
 button:hover{
     color: #E74C3C;
 }
-#rzp-button{
-    color:green;
+#rzp-button{    
+    color:rgb(17, 168, 32);
 }
 #listofExpenses{
     display:block;
