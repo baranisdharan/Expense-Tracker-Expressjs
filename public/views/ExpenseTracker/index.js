@@ -1,3 +1,5 @@
+const show=document.getElementsByClassName('mydownload')
+
 function addNewExpense(e){
     e.preventDefault()
     const expenseDetails={
@@ -135,3 +137,26 @@ function showLeaderboard(){
     }
     document.getElementById("message").appendChild(inputElement)    
 }
+
+function download(){
+    const token=localStorage.getItem('token');
+    axios.get('http://localhost:4000/user/download', { headers: {"Authorization" : token} })
+    .then((response) => {
+        console.log(response)
+        if(response.status === 200){
+            var a = document.createElement("a");
+            a.href = response.data.fileURl;
+            a.download = 'myexpense.csv';
+            a.click();
+            showFileURl(response.data.fileURl)
+        } else {
+            throw new Error(response.data.message)               
+        }
+    })
+    .catch((err) => {
+        document.body.innerHTML+=`<div style="color:red;">${err}</div>`
+    });
+}
+
+function showFileURl(filelink){
+    document.body.innerHTML +=`<a >${filelink}</a><br><a style="color:red">IF YOU WANT PREVIOUS  FILE COPY THE  URL</a>`}

@@ -62,3 +62,26 @@ exports.postLogin = async(req,res)=>{
 function generateAccessToken(id,name,ispremiumuser){
     return jwt.sign({userId:id,name:name,ispremiumuser:ispremiumuser},'secretkey')
 }
+
+exports.getDownload=async(req,res,next)=>{
+    if(!req.user.ispremiumuser){
+        return res.status(400).json({message:'only for premium user'})
+    }
+    try{
+    const expenses=await req.user.getExpenses()
+    console.log(expenses)
+    const stringifiedExpenses=JSON.stringify(expenses)
+    // depend on the users
+    const userId=req.user.id;
+    const filename=`Expense${userId}/${new Date()}.txt`;
+    const fileURl=await uploadToS3(stringifiedExpenses,filename)
+    console.log(fileURl)
+    await req.user.createFilelink({fileURl:fileURl})
+   
+    res.status(200).json({fileURl,success:true})
+    }
+    catch(err){
+        res.status(500).json({fileURl:'',success:false,err:err})
+    }
+
+}
