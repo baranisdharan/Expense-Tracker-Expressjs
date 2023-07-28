@@ -1,7 +1,9 @@
 const User = require('../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Expense=require('../models/expenses');
+const AWS=require('aws-sdk')
+const Filelink = require('../models/filelink')
+const Expense = require('../models/expenses');
 
 
 function isstringinvalid(string){
@@ -65,7 +67,7 @@ function generateAccessToken(id,name,ispremiumuser){
 
 exports.getDownload=async(req,res,next)=>{
     if(!req.user.ispremiumuser){
-        return res.status(400).json({message:'only for premium user'})
+        return res.status(400).json({message:'only for premium user'})        
     }
     try{
     const expenses=await req.user.getExpenses()
@@ -76,7 +78,7 @@ exports.getDownload=async(req,res,next)=>{
     const filename=`Expense${userId}/${new Date()}.txt`;
     const fileURl=await uploadToS3(stringifiedExpenses,filename)
     console.log(fileURl)
-    await req.user.createFilelink({fileURl:fileURl})
+    //await req.user.createFilelink({fileURl:fileURl})
    
     res.status(200).json({fileURl,success:true})
     }
@@ -84,4 +86,32 @@ exports.getDownload=async(req,res,next)=>{
         res.status(500).json({fileURl:'',success:false,err:err})
     }
 
+}
+
+function uploadToS3(data,filename){
+    const BUCKET_NAME=process.env.BUCKET_NAME;
+    const IAM_USER_KEY=process.env.IAM_USER_KEY;
+    const IAM_USER_SECRET=process.env.IAM_USER_SECRET;
+
+    let s3bucket=new AWS.S3({
+        accessKeyId:IAM_USER_KEY,
+        secretAccessKey:IAM_USER_SECRET,        
+    })
+    var params={
+        Bucket:BUCKET_NAME,
+        Key:filename,
+        Body:data,
+        ACL:'public-read'
+    }
+    return new Promise((resolve,reject)=>{
+        s3bucket.upload(params,(err,s3response)=>{
+            if(err){
+                console.log('something went wrong',err)
+                reject(err)
+            }
+            else{                
+                resolve(s3response.Location);
+            }
+    })
+    })
 }
