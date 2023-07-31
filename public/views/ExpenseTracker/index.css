@@ -1,61 +1,131 @@
-body{
-    text-align: center;    
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
 }
-.submission-form{
-    max-width:500px;
-    margin:2rem auto;
-    border:2px solid #E74C3C;
-    padding:2rem;
+
+h2 {
+    color: #1e3799;
+    margin: 2rem;
 }
-label{
+
+.submission-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    border: 2px solid #E74C3C;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
     display: block;
     text-transform: uppercase;
-}
-input{
-    width:100%;
-}
-button{
-    width:40%;
-    text-transform: uppercase;    
+    margin-bottom: 0.5rem;
 }
 
-#del-button{
-    width:10%;
+input,
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
 }
-button:hover{
+
+button {
+    width: 40%;
+    padding: 0.5rem;
+    text-transform: uppercase;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #E74C3C;
+    color: #fff;
+}
+
+#rzp-button {
+    color: #11A820;
+    background-color: transparent;
+    border: 2px solid #11A820;
+}
+
+#rzp-button:hover {
+    background-color: #11A820;
+    color: #fff;
+}
+
+#listofExpenses {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+#listofExpenses li {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#listofExpenses li span {
     color: #E74C3C;
 }
-#rzp-button{    
-    color:rgb(17, 168, 32);
+
+#buypremiumbutton {
+    font-size: 18px;
+    margin-top: 2rem;
 }
 
+#downloadexpense {
+    display: block;
+    margin: 0 auto;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    background-color: #11A820;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-#listofExpenses{
-    display:block;
-    border:2px solid;
-    text-align: center;
-    
+#downloadexpense:hover {
+    background-color: #0c8814;
 }
-#leaderboard{
-    display:block;
-    border:2px solid;
-    text-align: center;
-    color:white
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }
-li{
-    color:rgb(37, 12, 176);
-    text-transform:uppercase;
-    display:block;    
+
+#pagination button {
+    width: 30px;
+    height: 30px;
+    margin: 0 5px;
+    background-color: #750c0c;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
-#downloadexpense{
-    text-align: center;
-    width: fit-content;
-    
+
+#pagination button:hover {
+    background-color: #ccc;
 }
-#pagination button{
-    width:2%;
-    
-}
-#paginationleader button{
-    width:2%
+
+#message{
+    margin-bottom: 20px;
 }

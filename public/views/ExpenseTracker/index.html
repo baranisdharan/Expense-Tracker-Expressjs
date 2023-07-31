@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src * self blob: data: gap:; style-src * self 'unsafe-inline' blob: data: gap:; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;">
     <title>Document</title>
-    <link rel="stylesheet" href="bootstrap.min2.css" />
+    
     <link rel="stylesheet" href="index.css" />    
 </head>
 <body>
@@ -33,10 +33,11 @@
         </select><br><br>
         <button>Add Expense</button>
     </form>   
-    <h5 style="color:rgb(18, 209, 62)">Download File >>>>Buy premium</h5>
+    <h5 id="buypremiumbutton" style="color:rgb(18, 209, 62)">Buy premium To Download File</h5>
     <button onclick="download()" id="downloadexpense" class="mydownload">Download File</button>
-    <button id="rzp-button">Buy Premium</button><br><br>
+    <button id="rzp-button">Buy Premium</button>
     <div id="message"></div>
+    <div id="message1"></div>
     <div id="leaderboard"></div>
     <div id="paginationleader"></div>    
     <ul id="listofExpenses"></ul>

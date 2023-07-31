@@ -1,5 +1,6 @@
 const show = document.getElementsByClassName('mydownload')
 const pagination = document.getElementById('pagination')
+document.getElementById('downloadexpense').style.visibility = "hidden";
 
 function addNewExpense(e) {
     e.preventDefault()
@@ -29,7 +30,7 @@ window.addEventListener("DOMContentLoaded", () => {
         showPremiumusermessage()
         showLeaderboard()
     }
-    axios.get("http://localhost:4000/expense/getexpenses?page=${page}", { headers: { "Authorization": token } })
+    axios.get(`http://localhost:4000/expense/getexpenses?page=${page}`, { headers: { "Authorization": token } })
         .then(response => {
             response.data.expenses.forEach(expense => {
                 addNewExpensetoUI(expense)
@@ -42,7 +43,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function getExpenses(page) {
     const token=localStorage.getItem('token')
-    axios.get("http://localhost:4000/expense/getexpenses?page=${page}",{headers:{"Authorization":token}})
+    axios.get(`http://localhost:4000/expense/getexpenses?page=${page}`,{headers:{"Authorization":token}})
         .then(response => {
             response.data.expenses.forEach(expense => {
                 addNewExpensetoUI(expense)
@@ -83,6 +84,8 @@ function showError(err) {
 function showPremiumusermessage() {
     document.getElementById('rzp-button').style.visibility = "hidden";
     document.getElementById('message').innerHTML = "you are a premium user";
+    document.getElementById('buypremiumbutton').style.visibility = "hidden";
+    document.getElementById('downloadexpense').style.visibility = "visible";
 }
 
 function parseJwt(token) {
@@ -125,23 +128,33 @@ document.getElementById('rzp-button').onclick = async function (e) {
 }
 
 function showLeaderboard() {
-    const inputElement = document.createElement("input")
-    inputElement.type = "button"
-    inputElement.value = "Show Leaderboard"
+    const inputElement = document.createElement("input");
+    inputElement.type = "button";
+    inputElement.value = "Show Leaderboard";
+
+    // Applying the CSS styles to the button
+    inputElement.style.width = "40%";
+    inputElement.style.padding = "0.5rem";
+    inputElement.style.textTransform = "uppercase";
+    inputElement.style.borderRadius = "20px";
+    inputElement.style.cursor = "pointer";
+    inputElement.style.transition = "background-color 0.3s ease";
+
     inputElement.onclick = async () => {
-        const token = localStorage.getItem('token')
-        const page = 1;
-        const userLeaderBoardArray = await axios.get(`http://localhost:4000/premium/showLeaderBoard`, { headers: { "Authorization": token } })
-        console.log(userLeaderBoardArray)
-        var LeaderboardElem = document.getElementById("leaderboard")
-        LeaderboardElem.innerHTML += '<h1>Leader Board</h1>'
-        userLeaderBoardArray.data.
-            forEach((userDetails) => {
-                LeaderboardElem.innerHTML += `<li>Name-${userDetails.name} TOtal Expense-${userDetails.total_cost || 0}`
-            })
-    }
-    document.getElementById("message").appendChild(inputElement)
+        const token = localStorage.getItem('token');        
+        const userLeaderBoardArray = await axios.get(`http://localhost:4000/premium/showLeaderBoard`, { headers: { "Authorization": token } });
+
+        var LeaderboardElem = document.getElementById("leaderboard");
+        LeaderboardElem.innerHTML = ''; // Clear the leaderboard content before updating
+        LeaderboardElem.innerHTML += '<h1>Leader Board</h1>';
+        userLeaderBoardArray.data.forEach((userDetails) => {
+            LeaderboardElem.innerHTML += `<li>Name - ${userDetails.name} | Total Expense - ${userDetails.total_cost || 0}</li>`;
+        });
+    };
+
+    document.getElementById("message1").appendChild(inputElement);
 }
+
 
 function download() {
     const token = localStorage.getItem('token');
@@ -172,24 +185,25 @@ function showPagination({
     hasNextPage,
     hasPreviousPage,
     nextPage,
-    previousPage,
-    lastpage
+    previousPage    
 }) {
+    const pagination = document.getElementById('pagination'); // Assuming there is an element with the ID "pagination"
     pagination.innerHTML = "";
     if (hasPreviousPage) {
-        const btn2 = document.createElement('button')
-        btn2.innerHTML = previousPage
-        btn2.addEventListener('click', () => getExpenses(previousPage))
-        pagination.appendChild(btn2)
+        const btn2 = document.createElement('button');
+        btn2.innerHTML = previousPage;
+        btn2.addEventListener('click', () => getExpenses(previousPage));
+        pagination.appendChild(btn2);
     }
-    const btn1 = document.createElement('button')
-    btn1.innerHTML = `<h3>${currentPage}</h3>`
-    btn1.addEventListener('click', () => getExpenses(currentPage))
-    pagination.appendChild(btn1)
+    const btn1 = document.createElement('button');
+    btn1.innerHTML = `<h3>${currentPage}</h3>`;
+    btn1.addEventListener('click', () => getExpenses(currentPage));
+    pagination.appendChild(btn1);
     if (hasNextPage) {
-        const btn3 = document.createElement('button')
-        btn3.innerHTML = nextPage
-        btn3.addEventListener('click', () => getExpenses(nextPage))
-        pagination.appendChild(btn3)
+        const btn3 = document.createElement('button');
+        btn3.innerHTML = nextPage;
+        btn3.addEventListener('click', () => getExpenses(nextPage));
+        pagination.appendChild(btn3);
     }
 }
+
